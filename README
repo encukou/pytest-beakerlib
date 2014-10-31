@@ -1,0 +1,24 @@
+A pytest plugin that reports test results to the BeakerLib framework.
+
+pytest: http://pytest.org/latest/
+BeakerLib: https://fedorahosted.org/beakerlib/
+
+Once installed, this plugin can be activated via the --with-beakerlib ooption.
+This requires a BeakerLib session (i.e. rlJournalStart should have been run,
+so that $BEAKERLIB is set)
+
+
+Operation
+
+A Bash process is run on the side, and BeakerLib commands (rlPhaseStart,
+rlPhaseEnd, rlPass, rlFail, ...) are fed to it.
+This is not very elegant, but since BeakerLib commands are Bash functions,
+there is no way around running Bash.
+
+
+Integration
+
+Other plugins may integrate with this using pytest's
+config.pluginmanager.getplugin('BeakerLibPlugin'). If this is None,
+BeakerLib integration is not active, otherwise the result's
+run_beakerlib_command method can be used to run additional commands.
