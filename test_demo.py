@@ -5,7 +5,7 @@ Quick 'n dirty local invocation:
 
     . /usr/share/beakerlib/beakerlib.sh
     rlJournalStart
-    PYTHONPATH=. py.test -p pytest_beakerlib --with-beakerlib test_demo.py
+    PYTHONPATH=. py.test --with-beakerlib test_demo.py
     rlJournalEnd
 
 """
