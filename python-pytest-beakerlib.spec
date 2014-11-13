@@ -17,13 +17,13 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
-URL: https://github.com/encukou/%{srcname}
+URL: https://fedorahosted.org/python-pytest-beakerlib/
 
-Source0: https://github.com/encukou/%{srcname}/archive/v%{srcversion}.tar.gz#/%{versionedname}.tar.gz
+Source0: https://fedorahosted.org/released/%{name}/%{versionedname}.tar.gz
 
 BuildArch: noarch
 BuildRequires: python-devel
@@ -107,6 +107,10 @@ popd
 %{python3_sitelib}/__pycache__/%{modulename}.cpython-3?.py*
 %endif
 
+
+%changelog
+* Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.2-3
+- Update links to Fedorahosted
 
 %changelog
 * Mon Nov 3 2014 Petr Viktorin <encukou@gmail.com> - 0.2-2

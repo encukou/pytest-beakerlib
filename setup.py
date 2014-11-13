@@ -24,6 +24,7 @@ setup_args = dict(
     license = "GPL",
     author = "Petr Viktorin",
     author_email = "pviktori@redhat.com",
+    url = "https://fedorahosted.org/python-pytest-beakerlib/",
     py_modules = ["pytest_beakerlib"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
