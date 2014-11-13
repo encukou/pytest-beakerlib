@@ -1,2 +1,5 @@
 *.pyc
 /pytest-beakerlib-*.tar.gz
+/build/
+/dist/
+/*.egg-info/

@@ -17,14 +17,21 @@
 #
 
 from setuptools import setup
+import textwrap
+import io
+
+with io.open('README.rst', 'rt', encoding='utf-8') as f:
+    readme_contents = f.read()
 
 setup_args = dict(
     name = "pytest-beakerlib",
     version = "0.2",
+    description = "A pytest plugin that reports test results to the BeakerLib framework",
+    long_description = readme_contents,
+    url = "https://fedorahosted.org/python-pytest-beakerlib/",
     license = "GPL",
     author = "Petr Viktorin",
     author_email = "pviktori@redhat.com",
-    url = "https://fedorahosted.org/python-pytest-beakerlib/",
     py_modules = ["pytest_beakerlib"],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

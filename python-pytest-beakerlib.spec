@@ -92,7 +92,7 @@ popd
 
 %files
 %doc COPYING
-%doc README
+%doc README.rst
 %doc test_demo.py
 %{python_sitelib}/%{modulename}-%{version}-py2.?.egg-info
 %{python_sitelib}/%{modulename}.py*
@@ -100,7 +100,7 @@ popd
 %if 0%{?with_python3}
 %files -n python3-%{srcname}
 %doc COPYING
-%doc README
+%doc README.rst
 %doc test_demo.py
 %{python3_sitelib}/%{modulename}-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/%{modulename}.py
@@ -112,6 +112,5 @@ popd
 * Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.2-3
 - Update links to Fedorahosted
 
-%changelog
 * Mon Nov 3 2014 Petr Viktorin <encukou@gmail.com> - 0.2-2
 - initial public version of package
