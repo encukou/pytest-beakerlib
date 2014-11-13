@@ -49,6 +49,6 @@ mock: srpm
 	cp $(TARBALLNAME) $$(rpm -E '%{_topdir}')/SOURCES
 	mock rebuild rpmbuild/SRPMS/*.src.rpm
 
-release: upload copr-build
+release: upload
 
 .PHONY: all install tarball upload upload-fedorahosted upload-pypi wheel srpm copr-build release
