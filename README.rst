@@ -60,7 +60,8 @@ Developer links
 
 To release, update version in setup.py, add a Git tag like "v0.3",
 and run `make tarball`.
-Running `make upload` will put the tarball to Fedora Hosted and PyPI, if you
-have the rights.
+Running `make upload` will put the tarball to Fedora Hosted and PyPI,
+and a SRPM on Fedorapeople, if you have the rights.
+Running `make release` will upload and fire a COPR build.
 
 .. _patch guidelines: http://www.freeipa.org/page/Contribute/Patch_Format
