@@ -12,12 +12,12 @@
 
 %global srcname pytest-beakerlib
 %global modulename pytest_beakerlib
-%global srcversion 0.2
+%global srcversion 0.3
 %global versionedname %{srcname}-%{srcversion}
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -109,6 +109,9 @@ popd
 
 
 %changelog
+* Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.3-1
+- "Upstream" packaging fixes
+
 * Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.2-3
 - Update links to Fedorahosted
 
