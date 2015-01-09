@@ -1,3 +1,7 @@
+#
+# Copyright (C) 2014 pytest-beakerlib contributors. See COPYING for license
+#
+
 """Run these tests with the plugin to see what happens
 
 
