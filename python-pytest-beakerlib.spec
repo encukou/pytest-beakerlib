@@ -12,7 +12,7 @@
 
 %global srcname pytest-beakerlib
 %global modulename pytest_beakerlib
-%global srcversion 0.3
+%global srcversion 0.4
 %global versionedname %{srcname}-%{srcversion}
 
 Name: python-%{srcname}
@@ -109,6 +109,9 @@ popd
 
 
 %changelog
+* Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.4-1
+- Update to upstream 0.4
+
 * Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.3-1
 - "Upstream" packaging fixes
 
