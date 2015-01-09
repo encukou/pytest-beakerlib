@@ -17,7 +17,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -77,10 +77,10 @@ popd
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
 %if 0%{?with_python3}
-%py_byte_compile %{__python2} %{buildroot}%{python_sitelib}/%{srcname}
+%py_byte_compile %{__python2} %{buildroot}%{python2_sitelib}/%{srcname}
 %else
 # py_byte_compile is only defined in python3-devel
-%{__python2} -m compileall %{buildroot}%{python_sitelib}/%{srcname}
+%{__python2} -m compileall %{buildroot}%{python2_sitelib}/%{srcname}
 %endif
 
 %if 0%{?with_python3}
@@ -94,8 +94,8 @@ popd
 %doc COPYING
 %doc README.rst
 %doc test_demo.py
-%{python_sitelib}/%{modulename}-%{version}-py2.?.egg-info
-%{python_sitelib}/%{modulename}.py*
+%{python2_sitelib}/%{modulename}-%{version}-py2.?.egg-info
+%{python2_sitelib}/%{modulename}.py*
 
 %if 0%{?with_python3}
 %files -n python3-%{srcname}
@@ -109,6 +109,9 @@ popd
 
 
 %changelog
+* Fri Jan 9 2015 Petr Viktorin <encukou@gmail.com> - 0.4-2
+- Use correct macro for python2_sitelib
+
 * Thu Nov 13 2014 Petr Viktorin <encukou@gmail.com> - 0.4-1
 - Update to upstream 0.4
 
