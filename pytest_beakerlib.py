@@ -105,31 +105,6 @@ class BeakerLibPlugin(object):
         """Given a command as a Popen-style list, run it in the Bash process"""
         self.process.run_beakerlib_command(cmd)
 
-    def get_item_name(self, item):
-        """Return a "identifier-style" name for the given item
-
-        The name only contains the characters [^a-zA-Z0-9_].
-        """
-        bad_char_re = re.compile('[^a-zA-Z0-9_]')
-        parts = []
-        current = item
-        while current:
-            if isinstance(current, pytest.Module):
-                name = current.name
-                if name.endswith('.py'):
-                    name = name[:-3]
-                name = bad_char_re.sub('-', name)
-                parts.append(name)
-                break
-            if isinstance(current, pytest.Instance):
-                pass
-            else:
-                name = current.name
-                name = bad_char_re.sub('-', name)
-                parts.append(name)
-            current = current.parent
-        return '-'.join(reversed(parts))
-
     def set_current_item(self, item):
         """Set the item that is currently being processed
 
@@ -137,7 +112,7 @@ class BeakerLibPlugin(object):
         Ends the phase for the previous item, if any.
         """
         if item != self._current_item:
-            item_name = self.get_item_name(item)
+            item_name = get_item_name(item)
             if self._current_item:
                 self.run_beakerlib_command(['rlPhaseEnd'])
             if item:
@@ -148,8 +123,8 @@ class BeakerLibPlugin(object):
         """Log all collected items at start of test"""
         self.run_beakerlib_command(['rlLogInfo', 'Collected pytest tests:'])
         for item in items:
-            self.run_beakerlib_command(['rlLogInfo',
-                                        '  - ' + self.get_item_name(item)])
+            msg = '  - ' + get_item_name(item)
+            self.run_beakerlib_command(['rlLogInfo', msg])
 
     def pytest_runtest_setup(self, item):
         """Log item before running it"""
@@ -181,3 +156,29 @@ class BeakerLibPlugin(object):
         """Clean up and exit"""
         self.set_current_item(None)
         self.process.end()
+
+
+def get_item_name(item):
+    """Return a "identifier-style" name for the given item
+
+    The name only contains the characters [^a-zA-Z0-9_].
+    """
+    bad_char_re = re.compile('[^a-zA-Z0-9_]')
+    parts = []
+    current = item
+    while current:
+        if isinstance(current, pytest.Module):
+            name = current.name
+            if name.endswith('.py'):
+                name = name[:-3]
+            name = bad_char_re.sub('-', name)
+            parts.append(name)
+            break
+        if isinstance(current, pytest.Instance):
+            pass
+        else:
+            name = current.name
+            name = bad_char_re.sub('-', name)
+            parts.append(name)
+        current = current.parent
+    return '-'.join(reversed(parts))
