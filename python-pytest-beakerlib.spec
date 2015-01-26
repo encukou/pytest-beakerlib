@@ -17,7 +17,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -28,9 +28,19 @@ Source0: https://fedorahosted.org/released/%{name}/%{versionedname}.tar.gz
 BuildArch: noarch
 BuildRequires: python-devel
 BuildRequires: python-setuptools
+BuildRequires: pytest
 %if 0%{?with_python3}
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-pytest
+%endif
+
+# Test requirements:
+BuildRequires: beakerlib
+# Beakerlib dependency (https://bugzilla.redhat.com/show_bug.cgi?id=1185866):
+BuildRequires: rpm-python
+%if 0%{?with_python3}
+BuildRequires: rpm-python3
 %endif
 
 Requires: python
@@ -74,6 +84,31 @@ pushd %{py3dir}
 popd
 %endif
 
+%check
+. /usr/share/beakerlib/beakerlib.sh
+rlJournalStart
+PYTHONPATH=. ${__python2} -m pytest --with-beakerlib test_demo.py || :
+rlJournalEnd
+rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_success'
+rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_skip'
+rlJournalPrintText | grep 'FAIL .* RESULT: test_demo-test_fail'
+rm -rvf BEAKERLIB_DIR
+unset BEAKERLIB_DIR
+
+%if 0%{?with_python3}
+pushd %{py3dir}
+. /usr/share/beakerlib/beakerlib.sh
+rlJournalStart
+PYTHONPATH=. ${__python3} -m pytest --with-beakerlib test_demo.py || :
+rlJournalEnd
+rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_success'
+rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_skip'
+rlJournalPrintText | grep 'FAIL .* RESULT: test_demo-test_fail'
+rm -rvf BEAKERLIB_DIR
+unset BEAKERLIB_DIR
+popd
+%endif
+
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
 %if 0%{?with_python3}
@@ -99,7 +134,7 @@ popd
 
 %if 0%{?with_python3}
 %files -n python3-%{srcname}
-%doc COPYING
+%license COPYING
 %doc README.rst
 %doc test_demo.py
 %{python3_sitelib}/%{modulename}-%{version}-py%{python3_version}.egg-info
@@ -109,6 +144,10 @@ popd
 
 
 %changelog
+* Mon Jan 26 2015 Petr Viktorin <encukou@gmail.com> - 0.4-3
+- Run tests
+- Install COPYING as a license
+
 * Fri Jan 9 2015 Petr Viktorin <encukou@gmail.com> - 0.4-2
 - Use correct macro for python2_sitelib
 
