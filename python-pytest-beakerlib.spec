@@ -87,25 +87,11 @@ popd
 %check
 . /usr/share/beakerlib/beakerlib.sh
 rlJournalStart
-PYTHONPATH=. ${__python2} -m pytest --with-beakerlib test_demo.py || :
-rlJournalEnd
-rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_success'
-rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_skip'
-rlJournalPrintText | grep 'FAIL .* RESULT: test_demo-test_fail'
-rm -rvf BEAKERLIB_DIR
-unset BEAKERLIB_DIR
+PYTHON=${__python2} smoketest.sh
 
 %if 0%{?with_python3}
 pushd %{py3dir}
-. /usr/share/beakerlib/beakerlib.sh
-rlJournalStart
-PYTHONPATH=. ${__python3} -m pytest --with-beakerlib test_demo.py || :
-rlJournalEnd
-rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_success'
-rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_skip'
-rlJournalPrintText | grep 'FAIL .* RESULT: test_demo-test_fail'
-rm -rvf BEAKERLIB_DIR
-unset BEAKERLIB_DIR
+PYTHON=${__python3} smoketest.sh
 popd
 %endif
 
@@ -129,6 +115,7 @@ popd
 %doc COPYING
 %doc README.rst
 %doc test_demo.py
+%doc smoketest.sh
 %{python2_sitelib}/%{modulename}-%{version}-py2.?.egg-info
 %{python2_sitelib}/%{modulename}.py*
 
@@ -137,6 +124,7 @@ popd
 %license COPYING
 %doc README.rst
 %doc test_demo.py
+%doc smoketest.sh
 %{python3_sitelib}/%{modulename}-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/%{modulename}.py
 %{python3_sitelib}/__pycache__/%{modulename}.cpython-3?.py*
