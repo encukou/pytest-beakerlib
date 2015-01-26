@@ -12,12 +12,12 @@
 
 %global srcname pytest-beakerlib
 %global modulename pytest_beakerlib
-%global srcversion 0.4
+%global srcversion 0.5
 %global versionedname %{srcname}-%{srcversion}
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -132,7 +132,7 @@ popd
 
 
 %changelog
-* Mon Jan 26 2015 Petr Viktorin <encukou@gmail.com> - 0.4-3
+* Mon Jan 26 2015 Petr Viktorin <encukou@gmail.com> - 0.5-1
 - Run tests
 - Install COPYING as a license
 
