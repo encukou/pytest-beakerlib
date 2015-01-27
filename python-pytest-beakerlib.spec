@@ -17,7 +17,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -112,7 +112,7 @@ popd
 %endif
 
 %files
-%doc COPYING
+%license COPYING
 %doc README.rst
 %doc test_demo.py
 %doc smoketest.sh
@@ -132,6 +132,9 @@ popd
 
 
 %changelog
+* Tue Jan 27 2015 Petr Viktorin <encukou@gmail.com> - 0.5-2
+- Also install COPYING as a license on the Python 3 version
+
 * Mon Jan 26 2015 Petr Viktorin <encukou@gmail.com> - 0.5-1
 - Run tests
 - Install COPYING as a license
