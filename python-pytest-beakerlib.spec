@@ -17,7 +17,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Tue Aug 16 2016 Scott Poore <spoore@redhat.com> - 0.5-4
+- Add support for --short-phase-name
+
 * Mon Mar 2 2015 Petr Viktorin <encukou@gmail.com> - 0.5-3
 - Don't use licence macro on RHEL 6
 

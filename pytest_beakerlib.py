@@ -35,6 +35,10 @@ def pytest_addoption(parser):
         '--with-beakerlib', action="store_true",
         dest="with_beakerlib", default=None,
         help="Report test results via beakerlib")
+    parser.addoption(
+        '--short-phase-names', action="store_true",
+        dest="short_phase_names", default=None,
+        help="Use shorter phase names for beakerlib rlPhaseStart calls")
 
 
 @pytest.mark.tryfirst
@@ -43,6 +47,8 @@ def pytest_load_initial_conftests(args, early_config, parser):
     if ns.with_beakerlib:
         if 'BEAKERLIB' not in os.environ:
             exit('$BEAKERLIB not set, cannot use --with-beakerlib')
+        if ns.short_phase_names:
+            os.environ['SHORT_PHASE_NAMES'] = '1'
 
         plugin = BeakerLibPlugin()
         pluginmanager = early_config.pluginmanager.register(
@@ -164,10 +170,14 @@ def get_item_name(item):
     The name only contains the characters [^a-zA-Z0-9_].
     """
     bad_char_re = re.compile('[^a-zA-Z0-9_]')
+    get_name_re = re.compile('^.*\[.*: .*: (.*)\].*$')
+
     parts = []
     current = item
     while current:
         if isinstance(current, pytest.Module):
+            if 'SHORT_PHASE_NAMES' in os.environ:
+                break
             name = current.name
             if name.endswith('.py'):
                 name = name[:-3]
@@ -178,6 +188,11 @@ def get_item_name(item):
             pass
         else:
             name = current.name
+            if 'SHORT_PHASE_NAMES' in os.environ:
+                name = get_name_re.sub(r'\1', name)
+                if isinstance(current, pytest.Class):
+                    current = current.parent
+                    continue
             name = bad_char_re.sub('-', name)
             parts.append(name)
         current = current.parent

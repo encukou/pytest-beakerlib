@@ -11,5 +11,13 @@ rlJournalEnd
 rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_success'
 rlJournalPrintText | grep 'PASS .* RESULT: test_demo-test_skip'
 rlJournalPrintText | grep 'FAIL .* RESULT: test_demo-test_fail'
+
+rlJournalStart
+PYTHONPATH=. $PYTHON -m pytest --with-beakerlib --short-phase-names test_demo.py || :
+rlJournalEnd
+rlJournalPrintText | grep 'PASS .* RESULT: test_success'
+rlJournalPrintText | grep 'PASS .* RESULT: test_skip'
+rlJournalPrintText | grep 'FAIL .* RESULT: test_fail'
+
 rm -rvf BEAKERLIB_DIR
 unset BEAKERLIB_DIR
