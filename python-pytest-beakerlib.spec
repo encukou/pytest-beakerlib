@@ -12,12 +12,12 @@
 
 %global srcname pytest-beakerlib
 %global modulename pytest_beakerlib
-%global srcversion 0.5
+%global srcversion 0.6
 %global versionedname %{srcname}-%{srcversion}
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 4%{?dist}
+Release: 1%{?dist}
 Summary: A pytest plugin that reports test results to the BeakerLib framework
 
 License: GPLv3+
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Tue Aug 16 2016 Scott Poore <spoore@redhat.com> - 0.6-1
+- Bump version to 0.6
+
 * Tue Aug 16 2016 Scott Poore <spoore@redhat.com> - 0.5-4
 - Add support for --short-phase-name
 
