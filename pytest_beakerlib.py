@@ -27,7 +27,8 @@ import pytest
 
 
 def shell_quote(string):
-    return "'" + string.replace("'", "'\\''") + "'"
+    quote = "'" + string.replace("'", "'\\''") + "'"
+    return quote.encode('utf-8')
 
 
 def pytest_addoption(parser):
@@ -75,10 +76,11 @@ class BeakerLibProcess(object):
         """Given a command as a Popen-style list, run it in the Bash process"""
         if not self.bash:
             return
+
         for word in cmd:
             self.bash.stdin.write(shell_quote(word))
-            self.bash.stdin.write(' ')
-        self.bash.stdin.write('\n')
+            self.bash.stdin.write(b' ')
+        self.bash.stdin.write(b'\n')
         self.bash.stdin.flush()
         assert self.bash.returncode is None, "BeakerLib Bash process exited"
 
