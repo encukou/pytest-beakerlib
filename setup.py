@@ -25,7 +25,7 @@ with io.open('README.rst', 'rt', encoding='utf-8') as f:
 
 setup_args = dict(
     name = "pytest-beakerlib",
-    version = "0.7",
+    version = "0.7.1",
     description = "A pytest plugin that reports test results to the BeakerLib framework",
     long_description = readme_contents,
     url = "https://pagure.io/python-pytest-beakerlib",
