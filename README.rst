@@ -1,7 +1,7 @@
 A pytest plugin that reports test results to the BeakerLib framework.
 
 * pytest: http://pytest.org/latest/
-* BeakerLib: https://fedorahosted.org/beakerlib/
+* BeakerLib: https://github.com/beakerlib/beakerlib
 
 Once installed, this plugin can be activated via the ``--with-beakerlib`` option.
 This requires a BeakerLib session (i.e. ``rlJournalStart`` should have been run,
